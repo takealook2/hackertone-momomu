@@ -11,6 +11,8 @@ def register(request):
 
     elif request.method == "POST":
         #print (request.POST)
+        nickname    = request.POST.get('nickname', None)
+        #print(nickname)
         username    = request.POST.get('username', None)
         #print(username)
         password    = request.POST.get('password', None)
@@ -21,10 +23,7 @@ def register(request):
 
 
         res_data = {}
-        if not (username and password and re_password and email):
-            res_data['error'] = '모든 값을 입력하세요!'
-
-        elif password != re_password:
+        if  password != re_password:
             res_data['error'] = '비밀번호가 다릅니다'
             print(res_data)
 
@@ -32,7 +31,8 @@ def register(request):
             member = BoardMember(
                 username    = username,
                 email       = email,
-                password    = make_password(password)
+                password    = make_password(password),
+                nickname    = nickname
             )
             member.save()
 
