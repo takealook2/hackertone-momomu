@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import BoardMember
+from .models import *
 
 class BoardMemberAdmin(admin.ModelAdmin):
     list_display = ('username', 'nickname','email', 'password', 'created_at', 'updated_at')

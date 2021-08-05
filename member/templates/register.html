@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>모모뮤 회원가입</title>
+  <title>모모뮤 회원가입📝</title>
 
   <!-- Bootstrap CSS -->
   <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -36,9 +36,14 @@
     <div class="input-form-backgroud row">
       <div class="input-form col-md-12 mx-auto text-center">
         <h4 class="mb-3">회원가입📝</h4>
-                 
-        <form class="validation-form" novalidate>
-        <form method="POST" action=".">
+
+        <div class="mb-1 mx-auto text-center">
+          <p>
+            {{ error }}
+          </p>
+        </div>
+
+        <form class="validation-form" novalidate method="POST" action=".">
           {% csrf_token %}   
           <div class="mb-3">
             <label for="username">이름</label>
@@ -74,16 +79,19 @@
 
           <div class="mb-3">
             <label for="re_password">비밀번호 확인</label>
-            <input type="password" class="form-control" id="re_password" name="re_password" placeholder="비밀번호를 다시 입력해 주세요." required>
+            <input type="password" class="form-control" id="re_password" name="re_password" placeholder="위와 동일한 비밀번호를 다시 입력해 주세요." required>
             <div class="invalid-feedback">
-              비밀번호를 다시 입력해주세요.
+              위와 동일한 비밀번호를 다시 입력해주세요.
             </div>
           </div>
+
           <hr class="mb-4">
           <div class="custom-control custom-checkbox">
-            <input type="checkbox" class="custom-control-input" id="aggrement" required>
-            <label class="custom-control-label" for="aggrement">개인정보 수집 및 이용에 동의합니다.</label>
+            <input type="checkbox" class="form-check-input" id="validationFormCheck1" required>
+            <label class="form-check-label" for="validationFormCheck1">개인정보 수집 및 이용에 동의합니다.</label>
+            <div class="invalid-feedback">가입을 완료하기 전에 동의해 주세요.</div>
           </div>
+
           <div class="mb-4"></div>
           <button class="btn btn-primary btn-lg btn-block" type="submit">가입 완료</button>
         </form>
