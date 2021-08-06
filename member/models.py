@@ -2,6 +2,7 @@ from django.db import models
 
 # Create your models here.
 
+# 어드민 페이지 내에서 가입한 유저들의 정보 확인 관련 
 class BoardMember(models.Model):
     username    = models.CharField(max_length=100, verbose_name='유저이름')
     nickname    = models.CharField(max_length=100, verbose_name='유저닉네임')

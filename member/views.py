@@ -13,10 +13,10 @@ from .models import *
 
 #     return HttpResponse('Home!')
 
-
-def login(request):
+# 로그인 관련 함수
+def home(request):
     if request.method == "GET":
-        return render(request, 'login.html')
+        return render(request, 'home.html')
 
     elif request.method == "POST":
         email = request.POST.get('email', None)
@@ -37,13 +37,15 @@ def login(request):
             else:
                 res_data['error'] = '비밀번호가 일치하지 않습니다.'
 
-        return render(request, 'login.html', res_data)
+        return render(request, 'home.html', res_data)
 
+#로그아웃 함수
 def logout(request):
     if request.session.get('user'):
         del(request.session['user'])
     return redirect('/')
 
+#회원가입 관련 함수
 def register(request):
     if request.method == "GET":
         return render(request, 'register.html')
@@ -59,18 +61,24 @@ def register(request):
         nickname    = request.POST.get('nickname', None)
         res_data = {}
 
+        # 별명, 이메일 중복 확인(비밀번호 맞는지 아닌지 여부 확인)
+
         if BoardMember.objects.filter(nickname=request.POST['nickname']).exists():
             res_data['error'] = '이미 존재하는 별명입니다.'
             print(res_data)
-        
+            return render(request, 'register.html', res_data)
+
         if BoardMember.objects.filter(email=request.POST['email']).exists():
             res_data['error'] = '이미 존재하는 이메일입니다.'
             print(res_data)
+            return render(request, 'register.html', res_data)
 
 
         if password != re_password:
             res_data['error'] = '비밀번호가 다릅니다.'
             print(res_data)
+        
+            return render(request, 'register.html', res_data)
 
         else:
             member = BoardMember(
@@ -80,5 +88,4 @@ def register(request):
                 password    = make_password(password)
             )
             member.save()
-
-    return render(request, 'register.html', res_data)
+            return render(request, 'register_done.html', res_data)
